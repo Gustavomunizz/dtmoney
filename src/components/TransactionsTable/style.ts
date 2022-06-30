@@ -20,6 +20,7 @@ export const Container = styled.div`
   padding: 1rem 2rem;
   background-color: var(--shape);
   border: 0;
+  border-radius: 0.25rem;
   color: var(--text-body);
 
   

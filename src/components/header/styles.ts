@@ -17,7 +17,7 @@ export const Content = styled.div`
     padding: 0rem 2rem;
     height: 3rem;
     font-size: 1rem;
-    border-radius: 5px;
+    border-radius: 0.25rem;
 
     background-color: var(--blue-light);
     color: #FFFFFF;
