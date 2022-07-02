@@ -1,32 +1,28 @@
+import { useState } from 'react'
 import { Dashboard } from './components/dashboard'
 import { Header } from './components/header'
+import { NewTransactionModal } from './components/NewTransactionsModal'
 import { GlobalStyle } from './styles/global'
-import { createServer } from 'miragejs'
-
-createServer({
-  routes() {
-    this.namespace = 'api' //Significa que todas as chamadas a API vão ser a partir de um /api
-
-    this.get('/transactions', () => {
-      return [
-        {
-          id: 1,
-          title: 'Transaction 1',
-          amount: 400,
-          type: 'deposit',
-          category: 'Food',
-          createdAt: new Date()
-        }
-      ]
-    })
-  }
-})
 
 export function App() {
+  const [isOpenTransactionModal, setIsOpenTransactionModal] = useState(false)
+
+  function handleOpenNewTransactionModal() {
+    setIsOpenTransactionModal(true)
+  }
+
+  function handleCloseNewTransactionModal() {
+    setIsOpenTransactionModal(false)
+  }
+
   return (
     <>
-      <Header />
+      <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
       <Dashboard />
+      <NewTransactionModal
+        isOpen={isOpenTransactionModal}
+        onRequestClose={handleCloseNewTransactionModal}
+      />
       <GlobalStyle />
     </>
   )
