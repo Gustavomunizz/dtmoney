@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import Modal from 'react-modal'
-import { Container, TransactionTypeContainer } from './styles'
+import { Container, TransactionTypeContainer, RadioBox } from './styles'
 import incomesImg from '../../assets/incomes.svg'
 import outcomesImg from '../../assets/outcomes.svg'
 import closeImg from '../../assets/close.svg'
@@ -11,10 +12,9 @@ interface NewTransactionModalProps {
 
 Modal.setAppElement('#root')
 
-export function NewTransactionModal({
-  isOpen,
-  onRequestClose
-}: NewTransactionModalProps) {
+export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionModalProps) {
+  const [type, setType] = useState('deposit')
+
   return (
     <Modal
       isOpen={isOpen}
@@ -22,11 +22,7 @@ export function NewTransactionModal({
       overlayClassName="react-modal-overlay"
       className="react-modal-content"
     >
-      <button
-        type="button"
-        onClick={onRequestClose}
-        className="react-modal-close"
-      >
+      <button type="button" onClick={onRequestClose} className="react-modal-close">
         <img src={closeImg} alt="Fechar modal" />
       </button>
 
@@ -34,16 +30,31 @@ export function NewTransactionModal({
         <h2>Cadastrar transação</h2>
         <input type="text" placeholder="Título" />
         <input type="number" placeholder="Valor" />
+
         <TransactionTypeContainer>
-          <button type="button">
+          <RadioBox
+            type="button"
+            onClick={() => {
+              setType('deposit')
+            }}
+            isActive={type === 'deposit'}
+            activeColor="green"
+          >
             <img src={incomesImg} alt="Butão de entrada" />
             <span>Entrada</span>
-          </button>
+          </RadioBox>
 
-          <button type="button">
+          <RadioBox
+            type="button"
+            onClick={() => {
+              setType('withdraw')
+            }}
+            isActive={type === 'withdraw'}
+            activeColor="red"
+          >
             <img src={outcomesImg} alt="Butão de saída" />
             <span>Saída</span>
-          </button>
+          </RadioBox>
         </TransactionTypeContainer>
 
         <input type="text" placeholder="Categoria" />
