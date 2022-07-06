@@ -39,9 +39,9 @@ createServer({
       return schema.all('transaction')
     })
 
-    this.post('/transactions', (schema, request): any => {
+    this.post('/transactions', (schema, request) => {
       let data = JSON.parse(request.requestBody)
-      return schema.create('transaction', data)
+      return schema.create('transaction', { ...data, createdAt: new Date() })
     })
   }
 })
